@@ -95,7 +95,6 @@ class Camera(tk.Canvas):
 	def renderInfo(self):
 		# situation / carte (option de debug)
 		t = self.find_withtag('info')
-		print(t, type(t))
 		ch = f"x: {round(self.joueur.xpos, 5)}\n"
 		ch+= f"y: {round(self.joueur.ypos, 5)}\n"
 		ch+= f"a: {round(((-self.joueur.angle+pi)%(2*pi)-pi)*(180/pi), 5)}°\n"
@@ -105,6 +104,7 @@ class Camera(tk.Canvas):
 		# situation / carte
 		obj = self.create_text(5,5,anchor="nw", fill="green", font=('Courier',12,'bold'), justify="left", tags='info')
 		self.addtag_withtag('overlay', obj)
+		self.renderInfo()
 
 	def switchInfo(self):
 		"""Able or disable the overlay (info only)."""
@@ -113,7 +113,7 @@ class Camera(tk.Canvas):
 			if self.info_state:
 				self.createInfo()
 			else:
-				self.delete(self.find_withtag('info'))
+				self.delete('info')
 
 	def createOverlay(self):
 		# curseur de visee
@@ -130,7 +130,7 @@ class Camera(tk.Canvas):
 			if self.info_state:
 				self.createInfo()
 		else:
-			self.delete(self.find_withtag('overlay'))
+			self.delete('overlay')
 
 if __name__ == "__main__":
 	world = carte.Carte()
